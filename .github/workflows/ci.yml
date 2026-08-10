@@ -1,0 +1,54 @@
+# Deployment pipeline — Humble & Farley, "Continuous Delivery"
+#
+# Every change runs the same automated verification before it can reach
+# production. The pipeline is the only route to release; nothing is deployed
+# by hand.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Build verification
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run build verification suite
+        run: node tests/run.mjs
+
+      - name: Check for broken external links
+        continue-on-error: true
+        run: |
+          grep -rhoE 'href="https?://[^"]+"' --include=*.html . \
+            | sed -E 's/href="([^"]+)"/\1/' | sort -u > /tmp/urls.txt
+          echo "External URLs referenced:"; cat /tmp/urls.txt
+          while read -r url; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' -L --max-time 10 "$url" || echo 000)
+            [ "$code" -ge 400 ] && echo "  WARN $code $url"
+          done < /tmp/urls.txt || true
+
+  # Deployment is gated on verification passing. Fill in the deploy step for
+  # your host, then remove `if: false`.
+  deploy:
+    name: Deploy to production
+    needs: verify
+    if: false
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish
+        run: echo "Add your host's deploy step here (rsync, FTP action, Pages, etc.)"

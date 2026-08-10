@@ -1,0 +1,43 @@
+# ============================================================
+# Vince AI Ltd — Apache configuration
+# ============================================================
+
+# --- Custom error page ---
+ErrorDocument 404 /404.html
+
+# --- Force HTTPS + non-www -> www ---
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+  RewriteCond %{HTTP_HOST} ^www\.vinceai\.co\.uk [NC]
+  RewriteRule ^ https://vinceai.co.uk%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# --- Security headers ---
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
+  Header always set Content-Security-Policy "default-src 'self'; img-src 'self' data: https://www.google-analytics.com; style-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com; font-src 'self'; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com; form-action 'self'; frame-ancestors 'self'; base-uri 'self'"
+</IfModule>
+
+# --- Compression ---
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml \
+    application/javascript application/json image/svg+xml
+</IfModule>
+
+# --- Cache policy ---
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/html            "access plus 0 seconds"
+  ExpiresByType text/css             "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/png            "access plus 1 year"
+  ExpiresByType image/x-icon         "access plus 1 year"
+  ExpiresByType image/svg+xml        "access plus 1 year"
+</IfModule>

@@ -1,0 +1,16 @@
+# Normalise line endings — Pro Git, ch. 8
+* text=auto eol=lf
+
+*.html  text diff=html
+*.css   text diff=css
+*.js    text
+*.md    text diff=markdown
+*.svg   text
+
+*.png   binary
+*.jpg   binary
+*.ico   binary
+*.pdf   binary
+
+# Keep the brand masters out of GitHub language stats and diffs
+brand/** linguist-documentation

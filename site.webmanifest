@@ -1,0 +1,14 @@
+{
+  "name": "Vince AI Ltd",
+  "short_name": "Vince AI",
+  "description": "Technology and AI, built around your business.",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#000000",
+  "icons": [
+    { "src": "/assets/img/favicon-32.png",      "sizes": "32x32",   "type": "image/png" },
+    { "src": "/assets/img/apple-touch-icon.png","sizes": "180x180", "type": "image/png" },
+    { "src": "/assets/img/logo-icon.png",       "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
