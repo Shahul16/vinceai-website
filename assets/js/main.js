@@ -139,15 +139,59 @@
     });
 
     form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
       var firstInvalid = null;
       fields.forEach(function (field) {
         if (!validateField(field) && !firstInvalid) firstInvalid = field;
       });
       if (firstInvalid) {
-        e.preventDefault();
         firstInvalid.focus();
         firstInvalid.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
       }
+
+      // All fields valid — submit via fetch to Web3Forms
+      var btn = form.querySelector('button[type="submit"]');
+      var globalErr = form.querySelector('#form-global-error');
+      var origLabel = btn ? btn.innerHTML : '';
+
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending\u2026'; }
+      if (globalErr) { globalErr.textContent = ''; globalErr.classList.remove('is-visible'); }
+
+      var formData = new FormData(form);
+
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      })
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        if (data.success) {
+          // Fire GA4 conversion event before redirect
+          if (typeof window.gtag === 'function') {
+            window.gtag('event', 'enquiry_submitted', {
+              enquiry_type: (document.querySelector('#enquiry-type') || {}).value || 'unknown',
+              service: (document.querySelector('#service') || {}).value || 'unspecified'
+            });
+          }
+          // Redirect to thank-you page
+          var redirect = form.querySelector('[name="redirect"]');
+          window.location.href = redirect ? redirect.value : 'thank-you.html';
+        } else {
+          throw new Error(data.message || 'Submission failed');
+        }
+      })
+      .catch(function () {
+        if (btn) { btn.disabled = false; btn.innerHTML = origLabel; }
+        var msg = 'Something went wrong — please try again or email us directly at hello@vinceai.co.uk';
+        if (globalErr) {
+          globalErr.textContent = msg;
+          globalErr.classList.add('is-visible');
+        } else {
+          window.alert(msg);
+        }
+      });
     });
   }
 
@@ -167,7 +211,7 @@
   'use strict';
 
   var KEY = 'vinceai-consent';
-  var GA_ID = '';   // <-- set your GA4 measurement ID, e.g. 'G-XXXXXXXXXX'
+  var GA_ID = 'G-FGQB55TYJV';   // Google Analytics 4 Measurement ID
 
   var banner  = document.querySelector('.cookie-banner');
   var accept  = document.querySelector('[data-consent="accept"]');
@@ -248,7 +292,7 @@
   });
 
   // Funnel step 2 — engaged with the form
-  var form = document.querySelector('form[data-validate][action="thank-you.html"]');
+  var form = document.querySelector('form[data-validate]');
   if (form && document.querySelector('#message')) {
     var started = false;
     form.addEventListener('input', function () {

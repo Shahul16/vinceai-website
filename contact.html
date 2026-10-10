@@ -196,7 +196,14 @@
       <div class="reveal">
         <div class="section-head"><span class="eyebrow">Enquiries</span><h2>Send us a message</h2></div>
 
-        <form data-validate method="post" action="thank-you.html" novalidate>
+        <form data-validate id="contact-form-main" method="post" action="https://api.web3forms.com/submit" novalidate>
+          <!-- Web3Forms config -->
+          <input type="hidden" name="access_key" value="4426e9fc-749f-4993-b48e-621b1ae1bf85">
+          <input type="hidden" name="redirect" value="https://vinceai.co.uk/thank-you.html">
+          <input type="hidden" name="subject" value="New Vince AI Enquiry">
+          <input type="hidden" name="from_name" value="Vince AI Website">
+          <!-- Honeypot spam protection -->
+          <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
           <div class="field">
             <label for="enquiry-type">Enquiry type</label>
             <select class="select" id="enquiry-type" name="enquiry-type">
@@ -272,7 +279,8 @@
           </div>
           <p class="field__error" role="alert" style="margin-top:calc(var(--s-5) * -1);margin-bottom:var(--s-5)"></p>
 
-          <button class="btn btn--primary btn--lg" type="submit">Submit <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"/><path d="m12 6 6 6-6 6"/></svg></button>
+          <button class="btn btn--primary btn--lg" type="submit" id="contact-submit-btn">Send message <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13"/><path d="m12 6 6 6-6 6"/></svg></button>
+          <p class="field__error" id="form-global-error" role="alert" style="margin-top:var(--s-4)"></p>
         </form>
       </div>
 
