@@ -268,7 +268,7 @@ describe('StoryBrand — grunt test', () => {
     const main = home.match(/<main[\s\S]*?<\/main>/)[0];
     const words = strip(main).split(' ').filter((w) => /[a-z]/i.test(w)).length;
     // The approved two-person delivery profiles and fit section add substantive homepage copy.
-    assert(words < 900, `homepage <main> has ${words} words`);
+    assert(words < 875, `homepage <main> has ${words} words`);
   });
 });
 
