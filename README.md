@@ -19,7 +19,7 @@ dependencies, no framework.
 
 ```bash
 make serve     # http://localhost:8000
-make test      # build verification suite, 245 assertions, ~1s
+make test      # build verification suite, 263 assertions, ~1s
 ```
 
 No build step, no dependencies. To deploy, upload the contents of this
@@ -34,16 +34,11 @@ pipeline. Run it before you push.
 .
 ├── index.html                 Home
 ├── services.html              Services index
-├── services/                  9 service detail pages
-│   ├── software-development.html
+├── services/                  4 focused service detail pages
 │   ├── ai-automation.html
-│   ├── it-consultancy.html
-│   ├── cloud-microsoft365.html
 │   ├── data-analytics.html
-│   ├── training.html
-│   ├── licensing.html
-│   ├── web-presence.html
-│   └── systems-integration.html
+│   ├── systems-integration.html
+│   └── retainers.html
 ├── about.html                 Who We Are (+ team)
 ├── industries.html            Industries
 ├── insights.html              What We Think
@@ -61,12 +56,12 @@ pipeline. Run it before you push.
 │   ├── js/main.js             Nav, validation, reveal, ~160 lines
 │   └── img/                   Optimised logos + favicons
 │
-├── tests/run.mjs              Build verification, 245 assertions, no deps
+├── tests/run.mjs              Build verification, 263 assertions, no deps
 ├── .github/workflows/ci.yml   Pipeline: verify on every push, deploy gated
 ├── brand/                     Brand guidelines + master source art
 │
 ├── robots.txt
-├── sitemap.xml                20 URLs
+├── sitemap.xml                Focused public URLs
 ├── site.webmanifest           PWA manifest
 ├── .htaccess                  HTTPS, security headers, caching
 ├── .editorconfig / .gitattributes / Makefile

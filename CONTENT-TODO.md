@@ -15,7 +15,7 @@ section uses initials in circles because I had no photos.
 This is the single largest remaining gap between the site and the framework.
 
 **What to shoot**
-- Head-and-shoulders portraits of all four team members, same lighting, same
+- Head-and-shoulders portraits of all three team members, same lighting, same
   background, looking at camera
 - Two or three candid working shots, screen-in-shot, people mid-conversation
 - Avoid: stock photography of anonymous people in suits, handshake clichés,

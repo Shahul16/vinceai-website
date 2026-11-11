@@ -126,6 +126,35 @@ strong { color: var(--ink); font-weight: 600; }
 }
 .section-head.center h2::after { margin-inline: auto; }
 
+/* ---------- Partner trust bar ---------- */
+.partner-trust-bar {
+  padding-block: var(--s-5);
+  background: var(--surface-alt);
+  border-bottom: 1px solid var(--border);
+}
+.trust-bar-label {
+  margin-bottom: var(--s-3);
+  color: var(--ink-light);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.partner-logos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--s-2);
+}
+.partner-badge {
+  padding: var(--s-2) var(--s-3);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-pill);
+  color: var(--ink-muted);
+  font-size: var(--fs-xs);
+  font-weight: 600;
+}
+
 /* ---------- Skip link ---------- */
 .skip-link {
   position: absolute; left: -9999px; top: 0; z-index: 999;

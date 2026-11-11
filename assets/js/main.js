@@ -95,7 +95,26 @@
   });
 
   /* ---------------------------------------------------------------
-   * 5. Contact form validation
+   * 5. Contact-form context from service CTAs
+   * ------------------------------------------------------------- */
+  var serviceSelect = $('#service');
+  if (serviceSelect) {
+    var requestedService = new URLSearchParams(window.location.search).get('service');
+    var serviceLabels = {
+      retainer: 'Ongoing Retainers & Governance'
+    };
+    var requestedLabel = serviceLabels[requestedService];
+    if (requestedLabel) {
+      var matchingOption = Array.prototype.find.call(
+        serviceSelect.options,
+        function (option) { return option.textContent === requestedLabel; }
+      );
+      if (matchingOption) serviceSelect.value = matchingOption.value;
+    }
+  }
+
+  /* ---------------------------------------------------------------
+   * 6. Contact form validation
    * ------------------------------------------------------------- */
   var form = $('form[data-validate]');
   if (form) {

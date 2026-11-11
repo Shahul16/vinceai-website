@@ -5,7 +5,15 @@
 # --- Custom error page ---
 ErrorDocument 404 /404.html
 
-# --- Force HTTPS + non-www -> www ---
+# --- Deprecated service URLs ---
+Redirect 301 /services/web-presence.html /services/systems-integration.html
+Redirect 301 /services/licensing.html /services/ai-automation.html
+Redirect 301 /services/training.html /services/ai-automation.html
+Redirect 301 /services/cloud-microsoft365.html /services/systems-integration.html
+Redirect 301 /services/it-consultancy.html /services/systems-integration.html
+Redirect 301 /services/software-development.html /services/ai-automation.html
+
+# --- Force HTTPS + www -> apex ---
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteCond %{HTTPS} !=on
